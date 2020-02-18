@@ -76,11 +76,11 @@ This module creates a tsv of a table with the sdu or rsdu dictionaries, the user
 
 ``error = 'none', #default``
 
-``	'extrema' #minimum and maximum of bootstrapped distribution``
+``'extrema' #minimum and maximum of bootstrapped distribution``
 
-``	'stdev' #mean plus/minus the distribution's standard deviation``
+``'stdev' #mean plus/minus the distribution's standard deviation``
 
-``	'sem' #mean plus/minus the distribution's standard error of the mean``
+``'sem' #mean plus/minus the distribution's standard error of the mean``
 	
 	
 dinuq.RDA()
