@@ -27,8 +27,11 @@ The SDU module will calculate the synonymous dinucleotide usage for all sequence
 ``sdu = dinuq.SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none')``
 
 ``fasta file #required``
+
 ``dinucl = ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA'] #required``
+
 ``position = ['pos1', 'pos2', 'bridge'] #default is bridge``
+
 ``boots = integer #default is none``
 
 *Output*
@@ -46,8 +49,11 @@ The RSDU module will calculate the relative synonymous dinucleotide usage for al
 ``rsdu = dinuq.RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none')``
 
 ``fasta file #required``
+
 ``dinucl = ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA'] #required``
+
 ``position = ['pos1', 'pos2', 'bridge'] #default is bridge``
+
 ``boots = integer #default is none``
 
 *Output*
@@ -65,10 +71,15 @@ This module creates a tsv of a table with the sdu or rsdu dictionaries, the user
 ``dinuq.dict_to_tsv(dictionary, output_file, error = 'none')``
 
 ``dictionary = sdu or rsdu #required``
+
 ``output_file #required``
+
 ``error = 'none', #default``
+
 ``	'extrema' #minimum and maximum of bootstrapped distribution``
+
 ``	'stdev' #mean plus/minus the distribution's standard deviation``
+
 ``	'sem' #mean plus/minus the distribution's standard error of the mean``
 	
 	
@@ -82,7 +93,9 @@ The RDA module will calculate the relative dinucleotide abundance for all sequen
 ``rda = dinuq.RDA(fasta_file, dinucl, position = ['all'])``
 
 ``fasta_file #required``
+
 ``dinucl = ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA'] #required``
+
 ``position = ['pos1', 'pos2', 'bridge', 'all'] #default is all``
 
 *Output*
@@ -100,6 +113,7 @@ This module creates a tsv of a table with the rda dictionary
 ``dinuq.RDA_to_tsv(dictionary, output_file)``
 
 ``dictionary = rda #required``
+
 ``output_file #required``
 
 
@@ -130,6 +144,7 @@ This module creates a tsv of a table with the rscu dictionary
 ``dinuq.RSCU_to_tsv(dictionary, output_file)``
 
 ``dictionary = rscu #required``
+
 ``output_file #required``
 
 
