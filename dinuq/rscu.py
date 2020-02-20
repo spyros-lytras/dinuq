@@ -125,9 +125,30 @@ def RSCU(fasta_file):
         
         #save sequence as string 
         seq = str(recungap)
+        recungap = rec.seq.ungap("~")
+        
+        #save sequence as string 
+        seq = str(recungap)
+        
+        #make all uppercase
+        seq = seq.upper()
+        
+        #make sure it's a coding sequence
+        if len(seq)%3 != 0:
+            print('\n\nYour sequence length is not a multiple of 3...\n\n')
+        
         
         #save amino acid sequence as string
         aa = str(recungap.translate())
+        
+        #remove stop codons at the end
+        if aa[-1] == '*':
+            aa = aa[:-1]
+            seq = seq[:-3]
+        
+        #check for internal stop codons
+        if '*' in aa:
+            print('\n\nYour sequence has internal stop codons...\n\n')
         
         #make an ordered list of all codons in the sequence
         cod = []
