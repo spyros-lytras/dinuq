@@ -197,7 +197,7 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
         
         #make sure it's a coding sequence
         if len(seq)%3 != 0:
-            print('\n\nYour sequence length is not a multiple of 3...\n\n')
+            print(str('\n\nSequence ' + rec.id + ' has length not a multiple of 3...\n\n'))
         
         
         #save amino acid sequence as string
@@ -210,7 +210,7 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
         
         #check for internal stop codons
         if '*' in aa:
-            print('\n\nYour sequence has internal stop codons...\n\n')
+            print(str('\n\nSequence ' + rec.id + ' has internal stop codons...\n\n'))
         
         
 
