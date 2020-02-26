@@ -13,59 +13,6 @@ import math
 ###########################################################
 
 
-#############################################################################
-#              ----     `                                                   # 
-#            `-...-/-+oyy+                                                  #
-#           `:..-oyyyyyyo                                                   #
-#         `.:./syyyyyyy/--::-`                                              #
-#        .:/+ydddhyyyyyyyyyyyy`                                             #
-#        +oo+++syyyhhhyyyyyo:                                               #
-#       `+-.-/ooodddddds/-                       ......                     #
-#      .`     -ooyddhy`                     `..--.....:                     #
-#    `.       `oyysoos.                  .-:-........-.                     #
-#   `-       -yNNooooo.               `:++/:-......-:.                      #
-#   -     `:oyNNNsoooo`             ./ooooo+++////++.                       #
-#  -     :sooyNNNyoooo            `/ooooossooooooos`                        #
-#  -`   :y+++yNNNhyyy+   ..`..   -ooooydNNyoooooss+                 .:/oo:  #
-#   -  `/+soohNNNhyyy-  -    .. /oooymNNNho+++sso/             `:oyhyyyy+`  #
-#    ...`.soyyNNNyyyh/::     `-soosmNNNmyoooooo+-           .:+yhdddhyyyyys-#
-#      `::/yyydNdyyh+:o`    ...yydNNNNdoooooo+-          `..--/+ooyhhys+:.  #
-#       +oooyhydyyyo/++    `.../mNNNmyo+/:::-          `.`     `++oy/.      #
-#        :o++osss+:...+    ./::/hs+:--`     -        ..         +:.         #
-#       .+ss+//:-....-/.   .++so+++++:     `-     `..        `-.            #
-#         +o:-``.--///+o/::/+ossoo+/.     `.   `..`        `/oo-            #
-#        :/ `+yy+  -oooooo/:/+o+.`      ..``````         ``.oooo`           #
-#        : -ddd..+  /ooo- .:. .s`.------...           ```  :oooo:           #
-#       -` yddh`+y   y: ./-hm/ :   .---`         ``.``     +o+++/           #
-#       -  :yyyyy-   . `d.`ddd :       `......```         .o+ooo+           #
-#       -   `::.    .`  yyhddo -         ```             `+ooooo:           #
-#        .. `    .`    ../o+-  -     ``.``  ```.        `+oooooo            #
-#          :..-`  `::.. `-  `..   `.`      .....-.`    :ooooooo-            #
-#         .`  .::`/-.    +..`   `.`    `.-:.````-:/. :sssoooss/             #
-#         .`  :::o-/+`  ./`   ..     `.`    `--:::+yyyyyhhhhyy-             #
-#          -  .+oooo/  `:`-:.`      --`..`````oosyyyyyyyyyyo:               #
-#          .:  `//+-  -:..       .--           -+hhhhyy+/-`                 #
-#         .` -:-` `---..........-`               `/+///                     #
-#        -   --                           `.       .+/+`                    #
-#       -   -`-`       `                  :         .os/                    #
-#      .`   -  -       :                 :           :dy                    #
-#      -    :  -`--   :                  `            od                    #
-#      `.   /...-`..`.-        .`````````-             /                    #
-#       ..  `:`.+.``.+        /......::--`/-           `.                   #
-#        `.. `:::+.`--      .-`       --````:--         -                   #
-#           `.`.-/o-/     `+.          `:---:::/..`     `-                  #
-#                  --    .+:-            .:/:::/`  .-    -                  #
-#                  -    :/::-              -////:   -   `.                  #
-#           :--..-/    +/::/               -+:++    .  .-                   #
-#           sdddddo  .s///o-               yyyh.   /.:++                    #
-#           `/dmmys/ohyyhhh.              +hhh:   `osoo`                    #
-#         /hmmmmyooodmsdhhy              +hhh:    +ooo-                     #
-#          .-:++/oo+.`ohhh:            -ydhy/  `-//+o:                      #
-#           -:---++  :ss+-              -:.    :o/s//                       #
-#           ++s//:                               `                          #
-#############################################################################
-
-
 
 ####       DICTIONARIES        ####
 
@@ -147,14 +94,18 @@ syco = {
     "E": ["GAG", "GAA"], 
     "Y": ["TAT", "TAC"]} 
     
+###################################
     
+
+
+####       LISTS        ####
+
     
 #non-informative dinucleotide positions that will be excluded
 noninfo = ['CpCpos1', 'CpApos1', 'GpCpos1', 'GpGpos1', 'GpUpos1', 'GpApos1', 'UpGpos1', 'UpApos1', 'ApCpos1', 'ApUpos1', 'ApApos1']    
     
 
-###################################
-
+############################
 
 
 
@@ -163,7 +114,7 @@ noninfo = ['CpCpos1', 'CpApos1', 'GpCpos1', 'GpGpos1', 'GpUpos1', 'GpApos1', 'Up
 #position should also be a list: ['pos1', 'pos2', 'bridge']
 
 	
-def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):    
+def SDU(fasta_file, dinucl, position = ['bridge'], samples = 'none'):    
 
 
 
@@ -214,7 +165,7 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
         
         
 
-        #the amino acid sequence list is independent of the dinucleotide CDS position
+        #define list of all amino acid in the sequence 
         aalist = []
                 
         #for each amino acid in the sequence (range of the length of the sequence)
@@ -227,15 +178,15 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
         #list with actual sequence as the first item, followed by all the model sequences
         all_the_seqs = [seq]
         
-        #if the boots option has been selected
-        if boots != 'none':
+        #if the samples option has been selected
+        if samples != 'none':
         
             #define how many random samples you take
-            for i in range(boots):
+            for i in range(samples):
 
                 modelseq = "" 
 
-                #for each amino acid in the translated sequence
+                #for each amino acid in the peptide sequence
                 for a in aa:
                 
                     #randomly select one possible synonymous codon for the amino acid
@@ -248,10 +199,10 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                 all_the_seqs.append(modelseq)
         
 
-##########################
+    ############################
 
-        #everything downstream runs for each sequence in the fasta file
-
+        
+        
 
         #for each dinucleotide provided in the argument list
         for dinuc in dinucl:
@@ -261,9 +212,9 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
             
             
             
-        ####        PARAMETERS        ####
-        
-        #define the parameters mapping to each dinucleotide and position
+                ####        PARAMETERS        ####
+                
+                #define the parameters mapping to each dinucleotide and position
         
                 if dinuc == 'CpC':
                     thedinucleotide = 'CC'
@@ -456,13 +407,12 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                         thedictionary = ApApos2
                         pos_start = 1
 
-        ##########################
+                ##########################
 
 
                         
 
-    ####       ALL        ####
-                      
+                ####   CALCULATIONS    ####                      
                 
                 #bridge
 
@@ -475,14 +425,13 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                 
                     #use this counter to separate first sequence in the list from the model ones
                     c = 0
-                    #calculate wsdu for the observed sequence and all the model sequences
+                    #calculate SDU for the observed sequence and all the model sequences
                     for sequ in all_the_seqs:
-  
                     
                         #create lists for bridge dinucleotides
                         bdint = []                    
 
-                        #define the last dinucleotide as the sequuence length -3
+                        #define the last dinucleotide as the sequence length -3
                         lastdi = len(sequ) - 3
                         
                         #for nucleotide starting at position 2 (3rd position of first codon) and ending at the last position with a step of 3 (one codon)
@@ -515,7 +464,7 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
      
 
                         #set all the variables to 0
-                        wsdu = 0
+                        sdu = 0
                         k = 0
 
                         #for each amino acid pair key in the observed synonymous dn dictionary 
@@ -523,9 +472,6 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                                 
                             #if the pair is in the dictionary -> can use the dn of interest synonymously
                             if dia in thedictionary:
-                            
-                                # #k will be counting how many aa pairs have been used
-                                # k = k + 1
                                 
                                 #store the synonymous dn list for that aa pair
                                 dibridgelist = obsbridge[dia]
@@ -542,32 +488,31 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                                 #store the expected proportion of the dn under equal synonymous usage for the aa pair
                                 prop_exp = thedictionary[dia]
                                 
-                        ####    WEIGHTED    ####
+                        ####    WEIGHTING    ####
                                 
-                                #store the wsdu for this aa pair as proportion observed over proportion expected dn timed by the number of occurences of this aa pair
-                                wsdu_i = (prop_obs/prop_exp)*len(dibridgelist)
+                                #store the sdu for this aa pair as proportion observed over proportion expected dn timed by the number of occurences of this aa pair
+                                sdu_i = (prop_obs/prop_exp)*len(dibridgelist)
                                 
-                                #sum all wsdu values in the loop
-                                wsdu = wsdu + wsdu_i
+                                #sum all sdu values in the loop
+                                sdu = sdu + sdu_i
                         
-                        #calculate the wsdu as the wsdu sum over the total cumulative number of aa pairs, instead of the wsdu values in the loop, k
-                        # wsdu = wsdu/k
-                        wsdu = wsdu/k
+                        #calculate the  final sdu value
+                        sdu = sdu/k
                         
 
-                        ########################
+                        #########################
                         
                         
-                        #if this is the first sequence in the seq list, add that outside the inner list (observed wsdu)
+                        #if this is the first sequence in the seq list, add that outside the inner list (observed sdu)
                         if c == 0:
-                            if boots == 'none':
-                                results.update({name:[wsdu]})
+                            if samples == 'none':
+                                results.update({name:[sdu]})
                             else:
-                                results.update({name:[wsdu,[]]}) 
+                                results.update({name:[sdu,[]]}) 
                                 
-                        #if this is not the first sequence, add it inside the inner list (modelled wsdu)
+                        #if this is not the first sequence, add it inside the inner list (modelled sdu)
                         if c > 0:
-                            results[name][1].append(wsdu)
+                            results[name][1].append(sdu)
                         
                         c = c + 1
                         
@@ -596,8 +541,7 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                             for d in range(pos_start,len(sequ), 3):
                                 dint = str(sequ[d] + sequ[d+1])
                                 posdint.append(dint)
-                                       
-                        
+                                                              
                             obspos = {}
                             for i in range(len(posdint)):
                                 aa = aalist[i]
@@ -608,7 +552,7 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                                 
                             
                             
-                            wsdu = 0
+                            sdu = 0
                             k = 0
                             for aa in obspos:
                                 if aa in thedictionary:
@@ -617,18 +561,18 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                                     num_obs = di2list.count(thedinucleotide)
                                     prop_obs = num_obs/len(di2list)
                                     prop_exp = thedictionary[aa]
-                                    wsdu_i = (prop_obs/prop_exp)*len(di2list)
-                                    wsdu = wsdu + wsdu_i
-                            wsdu = wsdu/k
+                                    sdu_i = (prop_obs/prop_exp)*len(di2list)
+                                    sdu = sdu + sdu_i
+                            sdu = sdu/k
                             
                             if c == 0:
-                                if boots == 'none':
-                                    results.update({name:[wsdu]})
+                                if samples == 'none':
+                                    results.update({name:[sdu]})
                                 else:
-                                    results.update({name:[wsdu,[]]})
+                                    results.update({name:[sdu,[]]})
                                 
                             if c > 0:
-                                results[name][1].append(wsdu)                            
+                                results[name][1].append(sdu)                            
                             c = c + 1
                                     
         all_results.update({rec.id:results})
@@ -651,7 +595,7 @@ def SDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
 #position should also be a list: ['pos1', 'pos2', 'bridge']
 
 	
-def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):    
+def RSDU(fasta_file, dinucl, position = ['bridge'], samples = 'none'):    
 
 
 
@@ -717,11 +661,11 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
         #list with actual sequence as the first item, followed by all the model sequences
         all_the_seqs = [seq]
         
-        #if the boots option has been selected
-        if boots != 'none':        
+        #if the samples option has been selected
+        if samples != 'none':        
         
             #define how many random samples you take
-            for i in range(boots):
+            for i in range(samples):
 
                 modelseq = "" 
 
@@ -736,11 +680,7 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                     
                 #add model sequence to the sequence list
                 all_the_seqs.append(modelseq)
-        
-
-##########################
-
-        #everything downstream runs for each sequence in the fasta file
+       
 
 
         #for each dinucleotide provided in the argument list
@@ -751,9 +691,9 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
             
             
             
-        ####        PARAMETERS        ####
-        
-        #define the parameters mapping to each dinucleotide and position
+                ####        PARAMETERS        ####
+                
+                #define the parameters mapping to each dinucleotide and position
         
                 if dinuc == 'CpC':
                     thedinucleotide = 'CC'
@@ -946,14 +886,13 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                         thedictionary = ApApos2
                         pos_start = 1
 
-        ##########################
-
+                ##########################
 
                         
 
-    ####       ALL        ####
-                      
-                
+                ####   CALCULATIONS    ####  
+
+
                 #bridge
 
                 
@@ -973,7 +912,7 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                         
                         #use this counter to separate first sequence in the list from the model ones
                         c = 0
-                        #calculate wsdu for the observed sequence and all the model sequences
+                        #calculate sdu for the observed sequence and all the model sequences
                         for sequ in all_the_seqs:
       
                         
@@ -1013,25 +952,18 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
          
 
                             #set all the variables to 0
-                            wrsdu = 0
-                            wsdu = 0
-                            wsdu_max = 0
-                            # k = 0
+                            rsdu = 0
+                            sdu = 0
+                            sdu_max = 0
 
                             #for each amino acid pair key in the observed synonymous dn dictionary 
                             for dia in obsbridge:
                                     
                                 #if the pair is in the dictionary -> can use the dn of interest synonymously
                                 if dia in thedictionary:
-                                
-                                    # #k will be counting how many aa pairs have been used
-                                    # k = k + 1
                                     
                                     #store the synonymous dn list for that aa pair
                                     dibridgelist = obsbridge[dia]
-                                    
-                                    #k is counting the total number of amino acid pairs of interest observed
-                                    # k = k + len(dibridgelist)
                                     
                                     #count the number of dn of interest in the list 
                                     num_obs = dibridgelist.count(thedinucleotide)
@@ -1044,41 +976,39 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                                     
                             ####    WEIGHTED    ####
                                     
-                                    #store the wsdu for this aa pair as proportion observed over proportion expected dn timed by the number of occurences of this aa pair
-                                    wsdu_i = (prop_obs/prop_exp)*len(dibridgelist)
+                                    #store the sdu for this aa pair as proportion observed over proportion expected dn timed by the number of occurences of this aa pair
+                                    sdu_i = (prop_obs/prop_exp)*len(dibridgelist)
                                     
                                     #define the rsdu denominator
-                                    wsdu_max_i = (1/prop_exp)*len(dibridgelist)
+                                    sdu_max_i = (1/prop_exp)*len(dibridgelist)
                                     
-                                    #sum all wsdu values in the loop
-                                    wsdu = wsdu + wsdu_i
+                                    #sum all sdu values in the loop
+                                    sdu = sdu + sdu_i
                                     
                                     #sum all the denominators
-                                    wsdu_max = wsdu_max + wsdu_max_i
-                            
-                            #calculate the wsdu as the wsdu sum over the total cumulative number of aa pairs, instead of the wsdu values in the loop, k
-                            # wsdu = wsdu/k
-                            wrsdu = wsdu/wsdu_max
+                                    sdu_max = sdu_max + sdu_max_i
+
+                            rsdu = sdu/sdu_max
                             
 
                             ########################
                             
                             
-                            #if this is the first sequence in the seq list, add that outside the inner list (observed wrsdu)
+                            #if this is the first sequence in the seq list, add that outside the inner list (observed rsdu)
                             if c == 0:
-                                if boots == 'none':
-                                    results.update({name:[wrsdu]})
+                                if samples == 'none':
+                                    results.update({name:[rsdu]})
                                 else:
-                                    results.update({name:[wrsdu,[]]}) 
+                                    results.update({name:[rsdu,[]]}) 
                             
-                            #if this is not the first sequence, add it inside the inner list (modelled wrsdu)
+                            #if this is not the first sequence, add it inside the inner list (modelled rsdu)
                             if c > 0:
-                                results[name][1].append(wrsdu)
+                                results[name][1].append(rsdu)
                             
                             c = c + 1
                             
                     else:
-                        if boots == 'none':
+                        if samples == 'none':
                             results.update({name:['NA']})
                         else:
                             results.update({name:['NA',['NA']]})                            
@@ -1100,7 +1030,6 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                     
                         c = 0
                         
-                        #making sure that at least one informative aa is in the sequence, so that the denominator is not 0
                         noz = 0
                         for thea in list(thedictionary):
                             if thea in aalist:
@@ -1125,34 +1054,32 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
                                             obspos[aa].append(posdint[i])
                                     
                                 
-                                wrsdu = 0
-                                wsdu = 0
-                                wsdu_max = 0
-                                # k = 0
+                                rsdu = 0
+                                sdu = 0
+                                sdu_max = 0
                                 for aa in obspos:
                                     if aa in thedictionary:
                                         di2list = obspos[aa]
-                                        # k = k + len(di2list)
                                         num_obs = di2list.count(thedinucleotide)
                                         prop_obs = num_obs/len(di2list)
                                         prop_exp = thedictionary[aa]
-                                        wsdu_i = (prop_obs/prop_exp)*len(di2list)
-                                        wsdu_max_i = (1/prop_exp)*len(di2list)
-                                        wsdu = wsdu + wsdu_i
-                                        wsdu_max = wsdu_max + wsdu_max_i
-                                wrsdu = wsdu/wsdu_max
+                                        sdu_i = (prop_obs/prop_exp)*len(di2list)
+                                        sdu_max_i = (1/prop_exp)*len(di2list)
+                                        sdu = sdu + sdu_i
+                                        sdu_max = sdu_max + sdu_max_i
+                                rsdu = sdu/sdu_max
                                 
                                 if c == 0:
-                                    if boots == 'none':
-                                        results.update({name:[wrsdu]})
+                                    if samples == 'none':
+                                        results.update({name:[rsdu]})
                                     else:
-                                        results.update({name:[wrsdu,[]]}) 
+                                        results.update({name:[rsdu,[]]}) 
                                 if c > 0:
-                                    results[name][1].append(wrsdu)                            
+                                    results[name][1].append(rsdu)                            
                                 c = c + 1
                         
                         else:
-                            if boots == 'none':
+                            if samples == 'none':
                                 results.update({name:['NA']})
                             else:
                                 results.update({name:['NA',['NA']]})
@@ -1166,6 +1093,13 @@ def RSDU(fasta_file, dinucl, position = ['bridge'], boots = 'none'):
     
    
 ##########################   
+   
+   
+   
+   
+   
+
+####    TABLE   ####
    
    
 def dict_to_tsv(dictionary, output_name, error = 'none'):
@@ -1224,7 +1158,7 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
                 #takes care of not available RSDU values (none of the informative values amino acids in the sequence)
                 if the_value != 'NA':
                     
-                    #list of bootstrap sequence calculation
+                    #list of samplestrap sequence calculation
                     model_values = pos_list[1]
                     
                     #sample size
@@ -1281,5 +1215,5 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
     return print(table_out)
    
    
-  
+  ##########################
 

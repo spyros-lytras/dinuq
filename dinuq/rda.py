@@ -6,73 +6,16 @@ from Bio.Seq import Seq
 ###################         RDA         ###################
 ###########################################################
 
-#############################################################################
-#              ----     `                                                   # 
-#            `-...-/-+oyy+                                                  #
-#           `:..-oyyyyyyo                                                   #
-#         `.:./syyyyyyy/--::-`                                              #
-#        .:/+ydddhyyyyyyyyyyyy`                                             #
-#        +oo+++syyyhhhyyyyyo:                                               #
-#       `+-.-/ooodddddds/-                       ......                     #
-#      .`     -ooyddhy`                     `..--.....:                     #
-#    `.       `oyysoos.                  .-:-........-.                     #
-#   `-       -yNNooooo.               `:++/:-......-:.                      #
-#   -     `:oyNNNsoooo`             ./ooooo+++////++.                       #
-#  -     :sooyNNNyoooo            `/ooooossooooooos`                        #
-#  -`   :y+++yNNNhyyy+   ..`..   -ooooydNNyoooooss+                 .:/oo:  #
-#   -  `/+soohNNNhyyy-  -    .. /oooymNNNho+++sso/             `:oyhyyyy+`  #
-#    ...`.soyyNNNyyyh/::     `-soosmNNNmyoooooo+-           .:+yhdddhyyyyys-#
-#      `::/yyydNdyyh+:o`    ...yydNNNNdoooooo+-          `..--/+ooyhhys+:.  #
-#       +oooyhydyyyo/++    `.../mNNNmyo+/:::-          `.`     `++oy/.      #
-#        :o++osss+:...+    ./::/hs+:--`     -        ..         +:.         #
-#       .+ss+//:-....-/.   .++so+++++:     `-     `..        `-.            #
-#         +o:-``.--///+o/::/+ossoo+/.     `.   `..`        `/oo-            #
-#        :/ `+yy+  -oooooo/:/+o+.`      ..``````         ``.oooo`           #
-#        : -ddd..+  /ooo- .:. .s`.------...           ```  :oooo:           #
-#       -` yddh`+y   y: ./-hm/ :   .---`         ``.``     +o+++/           #
-#       -  :yyyyy-   . `d.`ddd :       `......```         .o+ooo+           #
-#       -   `::.    .`  yyhddo -         ```             `+ooooo:           #
-#        .. `    .`    ../o+-  -     ``.``  ```.        `+oooooo            #
-#          :..-`  `::.. `-  `..   `.`      .....-.`    :ooooooo-            #
-#         .`  .::`/-.    +..`   `.`    `.-:.````-:/. :sssoooss/             #
-#         .`  :::o-/+`  ./`   ..     `.`    `--:::+yyyyyhhhhyy-             #
-#          -  .+oooo/  `:`-:.`      --`..`````oosyyyyyyyyyyo:               #
-#          .:  `//+-  -:..       .--           -+hhhhyy+/-`                 #
-#         .` -:-` `---..........-`               `/+///                     #
-#        -   --                           `.       .+/+`                    #
-#       -   -`-`       `                  :         .os/                    #
-#      .`   -  -       :                 :           :dy                    #
-#      -    :  -`--   :                  `            od                    #
-#      `.   /...-`..`.-        .`````````-             /                    #
-#       ..  `:`.+.``.+        /......::--`/-           `.                   #
-#        `.. `:::+.`--      .-`       --````:--         -                   #
-#           `.`.-/o-/     `+.          `:---:::/..`     `-                  #
-#                  --    .+:-            .:/:::/`  .-    -                  #
-#                  -    :/::-              -////:   -   `.                  #
-#           :--..-/    +/::/               -+:++    .  .-                   #
-#           sdddddo  .s///o-               yyyh.   /.:++                    #
-#           `/dmmys/ohyyhhh.              +hhh:   `osoo`                    #
-#         /hmmmmyooodmsdhhy              +hhh:    +ooo-                     #
-#          .-:++/oo+.`ohhh:            -ydhy/  `-//+o:                      #
-#           -:---++  :ss+-              -:.    :o/s//                       #
-#           ++s//:                               `                          #
-#############################################################################
 
-
-
-
-#dinucl should be a list like: ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA']
-#position should also be a list: ['pos1', 'pos2', 'bridge', 'all']
 
 
 
 #non-informative dinucleotide positions that will be excluded
 noninfo = ['CpCpos1', 'CpApos1', 'GpCpos1', 'GpGpos1', 'GpUpos1', 'GpApos1', 'UpGpos1', 'UpApos1', 'ApCpos1', 'ApUpos1', 'ApApos1']    
-   
 
 
-
-
+#dinucl should be a list like: ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA']
+#position should also be a list: ['pos1', 'pos2', 'bridge', 'all']
 	
 def RDA(fasta_file, dinucl, position = ['all']):    
 
@@ -135,14 +78,16 @@ def RDA(fasta_file, dinucl, position = ['all']):
         
         
         
-
-##########################
-
+        ##########################
 
 
-        ####       ALL        ####
+                
+
+        ####   CALCULATIONS    ####  
 
 
+        #calculate one RDA value for the entire sequence
+        
         if 'all' in position:
         
            
@@ -222,14 +167,15 @@ def RDA(fasta_file, dinucl, position = ['all']):
                     dint.append(di)
 
 
-                ##RELATIVE DINUCLEOTIDE ABUNDANCE##
-
                 thedinucleotideone = thedinucleotide[0]
                 thedinucleotidetwo = thedinucleotide[1]
 
+                #calculate frequencies
                 freq_one = seq.count(thedinucleotideone)/len(seq)
                 freq_two = seq.count(thedinucleotidetwo)/len(seq)
                 freq_all = dint.count(thedinucleotide)/len(dint)
+                
+                #calculate rda
                 rda = freq_all/(freq_one*freq_two)
 
                 
@@ -238,8 +184,7 @@ def RDA(fasta_file, dinucl, position = ['all']):
                 results.update({name:rda})
 
 
-                         
-                
+
             all_results.update({rec.id:results})
                 
                 
@@ -247,10 +192,10 @@ def RDA(fasta_file, dinucl, position = ['all']):
 
         ####       POSITIONS        ####
                 
-                
+        
+        #calculate a separate RDA value for each frame position
         else:    
-     
-                        
+           
 
             #for each dinucleotide provided in the argument list
             for dinuc in dinucl:
@@ -336,8 +281,6 @@ def RDA(fasta_file, dinucl, position = ['all']):
                             #append it to the bridge dinucleotide list
                             bdint.append(dint)
 
-
-                        ##RELATIVE DINUCLEOTIDE ABUNDANCE##
                         
                         dbstr = ""
                         for d in bdint:
@@ -355,9 +298,6 @@ def RDA(fasta_file, dinucl, position = ['all']):
                         name = str(str(dinuc) + str(pos))
                         
                         results.update({name:rda})
-
-
-                        ###################################
      
 
 
@@ -382,7 +322,6 @@ def RDA(fasta_file, dinucl, position = ['all']):
                                 dint = str(seq[d] + seq[d+1])
                                 posdint.append(dint)
                                        
-                            ##RELATIVE DINUCLEOTIDE ABUNDANCE##
                             
                             dbstr = ""
                             for d in posdint:
@@ -399,8 +338,6 @@ def RDA(fasta_file, dinucl, position = ['all']):
                             
                             results.update({name:rda})
 
-
-                        ###################################
                      
             
         all_results.update({rec.id:results})
@@ -421,14 +358,14 @@ def RDA(fasta_file, dinucl, position = ['all']):
 
 
 
-##########################   
+####    TABLE   ####
+   
    
    
 def RDA_to_tsv(rda_dic, output_name):
 
     table_out = "acc\t"
 
-    #this takes care of the table's header
     for i in range(len(list(rda_dic[list(rda_dic)[0]]))):
         add = str(list(rda_dic[list(rda_dic)[0]])[i] + '\t')
         table_out = table_out + add
@@ -451,3 +388,6 @@ def RDA_to_tsv(rda_dic, output_name):
     out.close()    
     
     return print(table_out) 
+    
+    
+##########################    
