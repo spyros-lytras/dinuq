@@ -1,0 +1,17 @@
+Metadata-Version: 1.2
+Name: dinuq
+Version: 1.0.0
+Summary: The Dinucleotide Quantification Python package
+Home-page: https://github.com/spyros-lytras/dinuq
+Author: Spyros Lytras
+Author-email: s.lytras.1@research.gla.ac.uk
+License: UNKNOWN
+Download-URL: https://github.com/spyros-lytras/dinuq/archive/v1.0.0.tar.gz
+Project-URL: CVR Bioinformatics, https://bioinformatics.cvr.ac.uk/
+Description: UNKNOWN
+Keywords: bioinformatics dinucleotides viruses
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Programming Language :: Python
+Requires-Python: ~=3.5
