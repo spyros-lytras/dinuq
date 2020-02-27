@@ -9,9 +9,9 @@ def readme():
 setup(
     name='dinuq',
     version='1.0.0',
-    description='The dinucleotide quantification python package',
+    description='The Dinucleotide Quantification Python package',
     #long_description='long_description',
-    url='',
+    url='https://github.com/spyros-lytras/dinuq',
     classifiers=[
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
