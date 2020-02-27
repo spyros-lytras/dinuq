@@ -12,6 +12,7 @@ setup(
     description='The Dinucleotide Quantification Python package',
     #long_description='long_description',
     url='https://github.com/spyros-lytras/dinuq',
+    download_url = 'https://github.com/spyros-lytras/dinuq/archive/v1.0.0.tar.gz'
     classifiers=[
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
@@ -20,8 +21,6 @@ setup(
     keywords='bioinformatics dinucleotides viruses',
     project_urls={
     'CVR Bioinformatics': 'https://bioinformatics.cvr.ac.uk/',
-    'Funding': 'https://mrc.ukri.org/',
-    'MRC - University of Glasgow Centre for Virus Research': 'https://www.gla.ac.uk/researchinstitutes/iii/cvr/',
     },
     author='Spyros Lytras',
     author_email='s.lytras.1@research.gla.ac.uk',
