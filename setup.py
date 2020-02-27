@@ -12,7 +12,7 @@ setup(
     description='The Dinucleotide Quantification Python package',
     #long_description='long_description',
     url='https://github.com/spyros-lytras/dinuq',
-    download_url = 'https://github.com/spyros-lytras/dinuq/archive/v1.0.0.tar.gz'
+    download_url = 'https://github.com/spyros-lytras/dinuq/archive/v1.0.0.tar.gz',
     classifiers=[
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
