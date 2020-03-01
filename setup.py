@@ -8,9 +8,9 @@ def readme():
         
 setup(
     name='dinuq',
-    version='1.0.0',
+    version='1.0.1',
     description='The Dinucleotide Quantification Python package',
-    #long_description='long_description',
+    long_description= readme(),
     url='https://github.com/spyros-lytras/dinuq',
     download_url = 'https://github.com/spyros-lytras/dinuq/archive/v1.0.0.tar.gz',
     classifiers=[
@@ -24,7 +24,7 @@ setup(
     },
     author='Spyros Lytras',
     author_email='s.lytras.1@research.gla.ac.uk',
-    license='',
+    license='MIT',
     packages=['dinuq'],
     install_requires=['biopython'],
     python_requires="~=3.5")
