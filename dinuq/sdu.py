@@ -1149,7 +1149,7 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
             pos_list = acc_dict[list(acc_dict)[p]]
             
             #the observed sequence's value 
-            the_value = pos_list[0]
+            the_value = pos_list
                        
             table_out = table_out + str(str(the_value) + '\t')
             
