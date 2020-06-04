@@ -1,4 +1,4 @@
-##SDUc for Sarbecoviruses
+## SDUc for Sarbecoviruses
 
 This folder contains python scripts used for calculating the newly developed corrected Synonymous Dinucleotide Usage (SDUc),
 applied to a set of 69 viruses of the _Sarbecoviruses_ subgenus of the _Coronaviridae_ family. 
