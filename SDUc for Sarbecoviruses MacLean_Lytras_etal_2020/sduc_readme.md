@@ -10,4 +10,4 @@ This updated version of the SDU will soon be added to the DinuQ python package.
 The usage of the scripts is described in the schematic below:
 
 
-![SDUc script schematic]()
+![SDUc script schematic](https://github.com/spyros-lytras/dinuq/blob/master/SDUc%20for%20Sarbecoviruses%20MacLean_Lytras_etal_2020/sduc_schem.png)
