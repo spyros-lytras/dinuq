@@ -1,6 +1,6 @@
 from Bio import SeqIO
 
-from dinuqdv.thedicts import syco, stop
+from dinuq.thedicts import syco, stop
 
 
 

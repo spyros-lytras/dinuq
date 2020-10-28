@@ -1,7 +1,7 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
 
-from dinuqdv.thedicts import syco, cod_aa_dic, stop, DNA_codons, RNA_codons
+from dinuq.thedicts import syco, cod_aa_dic, stop, DNA_codons, RNA_codons
 
 ###########################################################
 ###################         RSCU         ##################

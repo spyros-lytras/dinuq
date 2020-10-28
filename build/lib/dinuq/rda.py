@@ -1,7 +1,7 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
 
-from dinuqdv.thedicts import noninfo
+from dinuq.thedicts import noninfo
 
 ###########################################################
 ###################         RDA         ###################
