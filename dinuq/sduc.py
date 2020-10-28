@@ -3,8 +3,8 @@ from Bio.Seq import Seq
 import random
 import math
 
-from dinuqdv.make_ntcont import eprime, ntcont
-from dinuqdv.thedicts import syco, noninfo
+from dinuq.make_ntcont import eprime, ntcont
+from dinuq.thedicts import syco, noninfo
 
 
 
