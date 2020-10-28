@@ -12,7 +12,8 @@ Dinucleotide Usage (RSDUc).
 *Version 1.1 of Dinuq introduces the new corrected SDU metric along with some other related modules.*
 
 **Proper documentation and web-based version under construction!**
-<img src="https://thumbs.gfycat.com/GroundedAshamedJohndory-max-1mb.gif" alt="under construction" width="300" class="center"/>
+
+![under construction](underconstruction.gif)
 
 *If the preliminary documentation below is unclear please don't hestitate to contact me!*
 
