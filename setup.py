@@ -8,7 +8,7 @@ def readme():
         
 setup(
     name='dinuq',
-    version='1.1.0',
+    version='1.1.1',
     description='The Dinucleotide Quantification Python package',
     long_description= readme(),
     long_description_content_type='text/markdown',
