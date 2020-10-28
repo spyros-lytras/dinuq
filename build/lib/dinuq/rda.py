@@ -1,17 +1,11 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
 
+from dinuqdv.thedicts import noninfo
 
 ###########################################################
 ###################         RDA         ###################
 ###########################################################
-
-
-
-
-
-#non-informative dinucleotide positions that will be excluded
-noninfo = ['CpCpos1', 'CpApos1', 'GpCpos1', 'GpGpos1', 'GpUpos1', 'GpApos1', 'UpGpos1', 'UpApos1', 'ApCpos1', 'ApUpos1', 'ApApos1']    
 
 
 #dinucl should be a list like: ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA']
@@ -39,43 +33,17 @@ def RDA(fasta_file, dinucl, position = ['all']):
         results = {}
 
 
-        #ungap in case of an alignment
-        recungap = rec.seq.ungap("-")        
-        recungap = rec.seq.ungap("~")
-        
         #save sequence as string 
-        seq = str(recungap)
+        seq = str(rec.seq)
+                
+        #ungap by simply removing dashes and tilts from the string
+        seq = seq.replace('-', '')
+        seq = seq.replace('~', '')
         
-        #make all uppercase
+        #make everything upper case from the start
         seq = seq.upper()
         
-        #make sure it's a coding sequence
-        if len(seq)%3 != 0:
-            print(str('\n\nSequence ' + rec.id + ' has length not a multiple of 3...\n\n'))
-        
-        
-        #save amino acid sequence as string
-        aa = str(recungap.translate())
-        
-        #remove stop codons at the end
-        if aa[-1] == '*':
-            aa = aa[:-1]
-            seq = seq[:-3]
-        
-        #check for internal stop codons
-        if '*' in aa:
-            print(str('\n\nSequence ' + rec.id + ' has internal stop codons...\n\n'))
-        
-
-        #the amino acid sequence list is independent of the dinucleotide CDS position
-        aalist = []
-                
-        #for each amino acid in the sequence (range of the length of the sequence)
-        for a in range(len(aa)):
-        
-            #append it to the aa list
-            aalist.append(aa[a])       
-        
+         
         
         
         ##########################
@@ -100,54 +68,10 @@ def RDA(fasta_file, dinucl, position = ['all']):
         
         #define the parameters mapping to each dinucleotide and position
         
-                if dinuc == 'CpC':
-                    thedinucleotide = 'CC'
-
-                if dinuc == 'CpG':
-                    thedinucleotide = 'CG'
-
-                if dinuc == 'CpU':
-                    thedinucleotide = 'CT'
-
-                if dinuc == 'CpA':
-                    thedinucleotide = 'CA'
-
-                if dinuc == 'GpC':
-                    thedinucleotide = 'GC'
-
-                if dinuc == 'GpG':
-                    thedinucleotide = 'GG'
-
-                if dinuc == 'GpU':
-                    thedinucleotide = 'GT'
-
-                if dinuc == 'GpA':
-                    thedinucleotide = 'GA'
-
-                if dinuc == 'UpC':
-                    thedinucleotide = 'TC'
-
-                if dinuc == 'UpG':
-                    thedinucleotide = 'TG'
-
-                if dinuc == 'UpU':
-                    thedinucleotide = 'TT'
-
-                if dinuc == 'UpA':
-                    thedinucleotide = 'TA'
-
-                if dinuc == 'ApC':
-                    thedinucleotide = 'AC'
-
-                if dinuc == 'ApG':
-                    thedinucleotide = 'AG'
-
-                if dinuc == 'ApU':
-                    thedinucleotide = 'AT'
-
-                if dinuc == 'ApA':
-                    thedinucleotide = 'AA'
-
+                #define the dinucleotide without the linking p
+                thedinucleotide = dinuc.replace('p', '')
+                thedinucleotide = thedinucleotide.replace('U', 'T')        
+        
 
             ##########################                    
                                              
@@ -206,53 +130,10 @@ def RDA(fasta_file, dinucl, position = ['all']):
         
         #define the parameters mapping to each dinucleotide and position
         
-                if dinuc == 'CpC':
-                    thedinucleotide = 'CC'
-
-                if dinuc == 'CpG':
-                    thedinucleotide = 'CG'
-
-                if dinuc == 'CpU':
-                    thedinucleotide = 'CT'
-
-                if dinuc == 'CpA':
-                    thedinucleotide = 'CA'
-
-                if dinuc == 'GpC':
-                    thedinucleotide = 'GC'
-
-                if dinuc == 'GpG':
-                    thedinucleotide = 'GG'
-
-                if dinuc == 'GpU':
-                    thedinucleotide = 'GT'
-
-                if dinuc == 'GpA':
-                    thedinucleotide = 'GA'
-
-                if dinuc == 'UpC':
-                    thedinucleotide = 'TC'
-
-                if dinuc == 'UpG':
-                    thedinucleotide = 'TG'
-
-                if dinuc == 'UpU':
-                    thedinucleotide = 'TT'
-
-                if dinuc == 'UpA':
-                    thedinucleotide = 'TA'
-
-                if dinuc == 'ApC':
-                    thedinucleotide = 'AC'
-
-                if dinuc == 'ApG':
-                    thedinucleotide = 'AG'
-
-                if dinuc == 'ApU':
-                    thedinucleotide = 'AT'
-
-                if dinuc == 'ApA':
-                    thedinucleotide = 'AA'
+                #define the dinucleotide without the linking p
+                thedinucleotide = dinuc.replace('p', '')
+                thedinucleotide = thedinucleotide.replace('U', 'T')        
+        
 
 
             ##########################              
@@ -370,7 +251,7 @@ def RDA_to_tsv(rda_dic, output_name):
         add = str(list(rda_dic[list(rda_dic)[0]])[i] + '\t')
         table_out = table_out + add
         
-    table_out = str(table_out + '\n')
+    table_out = str(table_out[:-1] + '\n')
 
     for i in range(len(list(rda_dic))):
         acc = str(list(rda_dic)[i] + '\t')
@@ -379,7 +260,7 @@ def RDA_to_tsv(rda_dic, output_name):
         for r in range(len(dict)):
             this_number = str(str(dict[list(dict)[r]]) + '\t')
             table_out = table_out + this_number
-        table_out = str(table_out + '\n')
+        table_out = str(table_out[:-1] + '\n')
         
     table_out = table_out[:-1]
     

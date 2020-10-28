@@ -1,0 +1,317 @@
+Metadata-Version: 2.1
+Name: dinuq
+Version: 1.1.0
+Summary: The Dinucleotide Quantification Python package
+Home-page: https://github.com/spyros-lytras/dinuq
+Author: Spyros Lytras
+Author-email: s.lytras.1@research.gla.ac.uk
+License: MIT
+Download-URL: https://github.com/spyros-lytras/dinuq/dist/dinuq-1.1.0.tar
+Project-URL: CVR Bioinformatics, https://bioinformatics.cvr.ac.uk/
+Description: DinuQ
+        =====
+        
+        The DinuQ (Dinucleotide Quantification) Python3 package provides a range
+        of metrics for quantifying nucleotide, dinucleotide representation and synonymous
+        codon usage in a DNA/RNA sequence. These include the recently developed
+        corrected Synonymous Dinucleotide Usage (SDUc) and corrected Relative Synonymous 
+        Dinucleotide Usage (RSDUc).
+        
+        <br>
+        
+        *Version 1.1 of Dinuq introduces the new corrected SDU metric along with some other related modules.*
+        
+        **Proper documentation and web-based version under construction!**
+        
+        ![under construction](https://media1.tenor.com/images/83592060cb2d2cf51e98a5809aeb60d3/tenor.gif?itemid=16734116)
+        
+        *If the preliminary documentation below is unclear please don't hestitate to contact me!*
+        
+        ***
+        
+        
+        Usage
+        -----
+        
+        ### Package installation
+        
+        Using pip, in a Unix terminal do: `pip install dinuq`
+        
+        Then in python do: `import dinuq`
+        
+        ### Modules
+        
+        
+        **Important:** RSDUc and SDUc can only be calculated for coding sequences! Make sure
+        that you fasta file doesn't have any non-coding sequences.
+        
+        <br>
+        
+        #### dinuq.SDUc()
+        
+        The SDUc module will calculate the corrected Synonymous Dinucleotide Usage
+        for all sequences in a given fasta file.
+        
+        
+        *Arguments*
+        
+        Required arguments:
+        
+        -   a fasta file with:
+            :   -   any number of coding sequences (no internal stop codons)
+                -   a different, preferably short, fasta header for each
+                    sequence (e.g. an accession)
+        
+        -   A list of dinucleotides of interest (still needs to be a list if
+            it's only one, e.g. ['CpG'])
+        
+        Optional arguments:
+        
+        -   A list of dinucleotide frame positions. By default the module will
+            calculate the SDUc for all coding positions (pos1, pos2, bridge), for each specified
+            dinucleotide.
+        -   If you want to calculate error intervals for the SDU values, you can
+            specify a number of iterations for the error measuring method
+            (suggested value between 100 and 1000). Notice that this will significantly
+        	slow down the calculation.
+        -	You can finally specify custom single nucleotide compositions to base
+        	the expected dinucleotide usage for each accession in your fasta file
+        	(e.g. if you want to calculate SDUc values for all CDS in a genome, 
+        	given the nt composition of the entire genome, instead of the nt composition
+        	of each CDS). This should be provided as a dictionary as so: 
+        	`{'acc1': {'G': fG, 'C': fC, 'A': fA, 'T': fT}, 'acc2': ...}`
+        
+        `sduc = dinuq.SDU(fasta_file, dinucl, position = ['pos1', 'pos2', 'bridge'], boots = 'none', custom_nt = 'none')`
+        
+        -   `fasta file #required`
+        -   `dinucl = ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA'] #required`
+        -   `position = ['pos1', 'pos2', 'bridge'] #default is all three positions`
+        -   `boots = integer #default is none`
+        -	`custom_nt = {'acc1': {'G': fG, 'C': fC, 'A': fA, 'T': fT}, 'acc2': ...} #default is none`
+        
+        
+        
+        *Output*
+        
+        The output of the module is a dictionary of accessions as keys and inner
+        dictionaries as values. The inner dictionaries have each dinucleotide
+        position as keys (e.g. CpGbridge) and a list of calculated SDU values as
+        the value. If the error margins are being calculated, an inner list of
+        SDU values calculated for each random sampling (specified in the samples
+        argument) is included.
+        
+        `sduc = {'accession': {'dinucleotideposition': [sdu_value, [bootstrap_value1, bootstrap_value2, bootstrap_valuen]]}}`
+        
+        
+        <br>
+        
+        #### dinuq.RSDUc()
+        
+        The RSDUc module will calculate the corrected Relative Synonymous Dinucleotide
+        Usage for all sequences in a given fasta file.
+        
+        
+        
+        *Arguments*
+        
+        The arguments are the same as the these for the SDU module.
+        
+        `rsduc = dinuq.RSDUc(fasta_file, dinucl, position = ['pos1', 'pos2', 'bridge'], boots = 'none', custom_nt = 'none')`
+        
+        -   `fasta file #required`
+        -   `dinucl = ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA'] #required`
+        -   `position = ['pos1', 'pos2', 'bridge'] #default is all three positions`
+        -   `boots = integer #default is none`
+        -	`custom_nt = {'acc1': {'G': fG, 'C': fC, 'A': fA, 'T': fT}, 'acc2': ...} #default is none`
+        
+        
+        
+        *Output*
+        
+        The output format is the same as in the SDUc module.
+        
+        `rsduc = {'accession': {'dinucleotideposition': [rsdu_value, [bootstrap_value1, bootstrap_value2, bootstrap_valuen]]}}`
+        
+        
+        <br>
+        
+        #### dinuq.dict\_to\_tsv()
+        
+        This module creates a tsv file in your working directory with the sdu or
+        rsdu dictionary information in a table format. The user can choose how
+        to summarise the error distribution (STDEV, SEM, MIN-MAX) if that has
+        been calculated.
+        
+        
+        
+        *Arguments*
+        
+        Required arguments:
+        
+        -   a sduc or rsduc dictionary produced by the SDUc or RSDUc module
+            respectively
+        -   A name for the output tsv file
+        
+        Optional arguments:
+        
+        -   A summary of the error distribution (given that it has been calculated
+        	by the SDUc/RSDUc module). This can be:   
+        		-   The minimum and maximum value of the distribution (extrema)
+                -   The standard deviation margins around the error
+                    distribution's mean (stdev)
+                -   The standard error of the mean margins around the mean (sem)
+        
+        `dinuq.dict_to_tsv(dictionary, output_file, error = 'none')`
+        
+        -   `dictionary = sduc or rsduc #required`
+        -   `output_file #required`
+        -   `error = 'none', #default`
+            :   -   `'extrema' #minimum and maximum of simulated distribution`
+                -   `'stdev' #mean plus/minus the distribution's standard deviation`
+                -   `'sem' #mean plus/minus the distribution's standard error of the mean`
+        
+        
+        <br>
+        
+        #### dinuq.RDA()
+        
+        The RDA module will calculate the Relative Dinucleotide Abundance for
+        all sequences in a given fasta file, either for the entire sequence or
+        specific dinucleotide frame positions.
+        
+        
+        
+        *Arguments*
+        
+        Required arguments:
+        
+        -   a fasta file with:
+            :   -   any number of coding sequences (no internal stop codons)
+                -   a different, preferably short, fasta header for each
+                    sequence (e.g. an accession)
+        
+        -   A list of dinucleotides of interest (still needs to be a list if
+            it's only one, e.g. ['CpG'])
+        
+        Optional arguments:
+        
+        -   A list of dinucleotide frame positions. By default the module will
+            calculate the RDA for the entire sequence (no frame position
+            separation).
+        
+        `rda = dinuq.RDA(fasta_file, dinucl, position = ['all'])`
+        
+        -   `fasta_file #required`
+        -   `dinucl = ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA'] #required`
+        -   `position = ['pos1', 'pos2', 'bridge', 'all'] #default is all`
+        
+        
+        
+        *Output*
+        
+        The output of the module is a dictionary of accessions as keys and inner
+        dictionaries as values. The inner dictionaries have each dinucleotide
+        position as keys (e.g. CpGbridge) and a list of the calculated RDA value
+        as the value.
+        
+        `rda = {'accession': {'dinucleotideposition': [rda_value]}}`
+        
+        
+        <br>
+        
+        #### dinuq.RDA\_to\_tsv()
+        
+        This module creates a tsv file in your working directory with the rda
+        dictionary information in a table format.
+        
+        
+        
+        *Arguments*
+        
+        Required arguments:
+        
+        -   a rda dictionary produced by the RDA module
+        -   A name for the output tsv file
+        
+        `dinuq.RDA_to_tsv(dictionary, output_file)`
+        
+        `dictionary = rda #required`
+        
+        `output_file #required`
+        
+        
+        
+        #### dinuq.RSCU()
+        
+        The RSCU module will calculate the Relative Synonymous Codon Usage for
+        all sequences in a given fasta file.
+        
+        
+        
+        *Arguments*
+        
+        Required arguments:
+        
+        -   a fasta file with:
+            :   -   any number of coding sequences (no internal stop codons)
+                -   a different, preferably short, fasta header for each
+                    sequence (e.g. an accession)
+        
+        `rscu = dinuq.RSCU(fasta_file)`
+        
+        -   `fasta_file #required`
+        
+        
+        
+        *Output*
+        
+        The output of the module is a dictionary of accessions as keys and inner
+        dictionaries as values. The inner dictionaries have each codon as keys
+        and the calculated RSCU value as the value.
+        
+        `rscu = {'accession': {'codon': rscu_value}}`
+        
+        
+        <br>
+        
+        #### dinuq.RSCU\_to\_tsv()
+        
+        This module creates a tsv file in your working directory with the rscu
+        dictionary information in a table format.
+        
+        
+        
+        *Arguments*
+        
+        Required arguments:
+        
+        -   a rscu dictionary produced by the RSCU module
+        -   A name for the output tsv file
+        
+        `dinuq.RSCU_to_tsv(dictionary, output_file)`
+        
+        `dictionary = rscu #required`
+        
+        `output_file #required`
+        
+        <br>
+        
+        #### dinuq.ntcont()
+        The ntcont module will simply calculate the single nucleotide composition
+        of all sequences in a fasta file. The only argument required is the name of the fasta file.
+        
+        `nt = dinuq.ntcont(fasta_file)`
+        
+        
+        
+        
+        ### Citations: 
+        - *[Lytras, S.; Hughes, J. Synonymous Dinucleotide Usage: A Codon-Aware Metric for Quantifying Dinucleotide Representation in Viruses. Viruses 2020, 12, 462](https://doi.org/10.3390/v12040462)*
+        - *[MacLean, O.<sup>#</sup>; Lytras, S.<sup>#</sup>; Weaver, S.; Singer, J.B.; Boni, M. F.; Lemey, P.; Kosakovsky Pond, S.L.; Robertson D.L. Natural selection in the evolution of SARS-CoV-2 in bats, not humans, created a highly capable human pathogen](https://www.biorxiv.org/content/10.1101/2020.05.28.122366v2)*
+Keywords: bioinformatics dinucleotides viruses
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Programming Language :: Python
+Requires-Python: ~=3.6
+Description-Content-Type: text/markdown

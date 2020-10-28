@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, Extension
 
 
 def readme():
@@ -11,6 +11,7 @@ setup(
     version='1.1.0',
     description='The Dinucleotide Quantification Python package',
     long_description= readme(),
+    long_description_content_type='text/markdown',
     url='https://github.com/spyros-lytras/dinuq',
     download_url = 'https://github.com/spyros-lytras/dinuq/dist/dinuq-1.1.0.tar',
     classifiers=[
