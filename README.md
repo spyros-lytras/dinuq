@@ -13,7 +13,7 @@ Dinucleotide Usage (RSDUc).
 
 **Proper documentation and web-based version under construction!**
 
-![under construction](underconstruction.gif)
+![under construction](https://media1.tenor.com/images/83592060cb2d2cf51e98a5809aeb60d3/tenor.gif?itemid=16734116)
 
 *If the preliminary documentation below is unclear please don't hestitate to contact me!*
 
