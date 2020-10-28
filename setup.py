@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 def readme():
-    with open('README.rst') as f:
+    with open('README.md') as f:
         return f.read()
         
         
@@ -12,7 +12,7 @@ setup(
     description='The Dinucleotide Quantification Python package',
     long_description= readme(),
     url='https://github.com/spyros-lytras/dinuq',
-    download_url = 'https://github.com/spyros-lytras/dinuq/archive/v1.0.1.tar.gz',
+    download_url = 'https://github.com/spyros-lytras/dinuq/dist/dinuq-1.1.0.tar',
     classifiers=[
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
