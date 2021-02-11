@@ -71,7 +71,7 @@ Optional arguments:
 	of each CDS). This should be provided as a dictionary as so: 
 	`{'acc1': {'G': fG, 'C': fC, 'A': fA, 'T': fT}, 'acc2': ...}`
 
-`sduc = dinuq.SDU(fasta_file, dinucl, position = ['pos1', 'pos2', 'bridge'], boots = 'none', custom_nt = 'none')`
+`sduc = dinuq.SDUc(fasta_file, dinucl, position = ['pos1', 'pos2', 'bridge'], boots = 'none', custom_nt = 'none')`
 
 -   `fasta file #required`
 -   `dinucl = ['CpC', 'CpG', 'CpU', 'CpA', 'GpC', 'GpG', 'GpU', 'GpA', 'UpC', 'UpG', 'UpU', 'UpA', 'ApC', 'ApG', 'ApU', 'ApA'] #required`
