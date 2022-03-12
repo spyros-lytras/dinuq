@@ -1,6 +1,8 @@
+LICENSE.txt
 README.md
 setup.py
 dinuq/__init__.py
+dinuq/checks.py
 dinuq/make_ntcont.py
 dinuq/rda.py
 dinuq/rscu.py
