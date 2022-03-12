@@ -114,7 +114,7 @@ def RSCU(fasta_file):
 ####    TABLE   ####
 
 
-def RSCU_to_tsv(RSCU_dic, output_name):
+def RSCU_to_tsv(RSCU_dic, output_name, sep = '\t'):
 
     table_out = ""
 
@@ -136,11 +136,11 @@ def RSCU_to_tsv(RSCU_dic, output_name):
                 
                 if rc%4 != 0:
                     
-                    table_out = str(table_out + cod_aa_dic[codon] + '\t' + RNA_codons[i] + '\t' + str(value) + '\t')
+                    table_out = str(table_out + cod_aa_dic[codon] + sep + RNA_codons[i] + sep + str(value) + sep)
                     
                 else:
                 
-                    table_out = str(table_out + cod_aa_dic[codon] + '\t' + RNA_codons[i] + '\t' + str(value) + '\n')
+                    table_out = str(table_out + cod_aa_dic[codon] + sep + RNA_codons[i] + sep + str(value) + '\n')
                     
             else: 
                 
@@ -148,11 +148,11 @@ def RSCU_to_tsv(RSCU_dic, output_name):
                 
                 if rc%4 != 0:
                     
-                    table_out = str(table_out + cod_aa_dic[codon] + '\t' + RNA_codons[i] + '\t' + str(value) + '\t')
+                    table_out = str(table_out + cod_aa_dic[codon] + sep + RNA_codons[i] + sep + str(value) + sep)
                     
                 else:
                 
-                    table_out = str(table_out + cod_aa_dic[codon] + '\t' + RNA_codons[i] + '\t' + str(value) + '\n')
+                    table_out = str(table_out + cod_aa_dic[codon] + sep + RNA_codons[i] + sep + str(value) + '\n')
 
             rc = rc + 1
             

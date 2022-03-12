@@ -8,12 +8,12 @@ def readme():
         
 setup(
     name='dinuq',
-    version='1.1.1',
+    version='1.2.0',
     description='The Dinucleotide Quantification Python package',
     long_description= readme(),
     long_description_content_type='text/markdown',
-    url='https://github.com/spyros-lytras/dinuq',
-    download_url = 'https://github.com/spyros-lytras/dinuq/dist/dinuq-1.1.0.tar',
+    url='https://spyros-lytras.github.io/dinuq/',
+    download_url = 'https://github.com/spyros-lytras/dinuq/dist/dinuq-1.2.0.tar',
     classifiers=[
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
@@ -21,6 +21,7 @@ setup(
     ],
     keywords='bioinformatics dinucleotides viruses',
     project_urls={
+    'Documentation': 'https://spyros-lytras.github.io/dinuq/',
     'CVR Bioinformatics': 'https://bioinformatics.cvr.ac.uk/',
     },
     author='Spyros Lytras',

@@ -1,7 +1,6 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
 
-from dinuq.thedicts import noninfo
 
 ###########################################################
 ###################         RDA         ###################
@@ -190,34 +189,32 @@ def RDA(fasta_file, dinucl, position = ['all']):
                     if (pos == 'pos1' or pos == 'pos2'):
                         
                         name = str(str(dinuc) + str(pos))
-                        
-                        if name not in noninfo:
-                        
-                            if pos == 'pos1':
-                                pos_start = 0
-                            if pos == 'pos2':
-                                pos_start = 1
-                                
-                            posdint = []
-                            for d in range(pos_start,len(seq), 3):
-                                dint = str(seq[d] + seq[d+1])
-                                posdint.append(dint)
-                                       
+                                                
+                        if pos == 'pos1':
+                            pos_start = 0
+                        if pos == 'pos2':
+                            pos_start = 1
                             
-                            dbstr = ""
-                            for d in posdint:
-                                dbstr = dbstr + d   
+                        posdint = []
+                        for d in range(pos_start,len(seq), 3):
+                            dint = str(seq[d] + seq[d+1])
+                            posdint.append(dint)
+                                   
+                        
+                        dbstr = ""
+                        for d in posdint:
+                            dbstr = dbstr + d   
 
-                            thedinucleotideone = thedinucleotide[0]
-                            thedinucleotidetwo = thedinucleotide[1]
+                        thedinucleotideone = thedinucleotide[0]
+                        thedinucleotidetwo = thedinucleotide[1]
 
-                            freq_one = dbstr.count(thedinucleotideone)/len(dbstr)
-                            freq_two = dbstr.count(thedinucleotidetwo)/len(dbstr)
-                            freq_all = posdint.count(thedinucleotide)/len(posdint)
-                            rda = freq_all/(freq_one*freq_two)
-                                                  
-                            
-                            results.update({name:rda})
+                        freq_one = dbstr.count(thedinucleotideone)/len(dbstr)
+                        freq_two = dbstr.count(thedinucleotidetwo)/len(dbstr)
+                        freq_all = posdint.count(thedinucleotide)/len(posdint)
+                        rda = freq_all/(freq_one*freq_two)
+                                              
+                        
+                        results.update({name:rda})
 
                      
             
@@ -243,22 +240,22 @@ def RDA(fasta_file, dinucl, position = ['all']):
    
    
    
-def RDA_to_tsv(rda_dic, output_name):
+def RDA_to_tsv(rda_dic, output_name, sep = '\t'):
 
-    table_out = "acc\t"
+    table_out = "acc" + sep
 
     for i in range(len(list(rda_dic[list(rda_dic)[0]]))):
-        add = str(list(rda_dic[list(rda_dic)[0]])[i] + '\t')
+        add = str(list(rda_dic[list(rda_dic)[0]])[i] + sep)
         table_out = table_out + add
         
     table_out = str(table_out[:-1] + '\n')
 
     for i in range(len(list(rda_dic))):
-        acc = str(list(rda_dic)[i] + '\t')
+        acc = str(list(rda_dic)[i] + sep)
         dict = rda_dic[list(rda_dic)[i]]
         table_out = table_out + acc
         for r in range(len(dict)):
-            this_number = str(str(dict[list(dict)[r]]) + '\t')
+            this_number = str(str(dict[list(dict)[r]]) + sep)
             table_out = table_out + this_number
         table_out = str(table_out[:-1] + '\n')
         

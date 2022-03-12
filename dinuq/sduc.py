@@ -5,6 +5,7 @@ import math
 
 from dinuq.make_ntcont import eprime, ntcont
 from dinuq.thedicts import syco, noninfo
+from dinuq.checks import removeNs
 
 
 
@@ -85,6 +86,9 @@ def SDUc(fasta_file, dinucl, position = ['pos1', 'pos2', 'bridge'], boots = 'non
             print("\n\n\\(*'o'*)/\tOops! Sequence %s has length not a multiple of 3...\n\n"%str(rec.id))
             return
         
+        
+        #remove Ns that might be in the sequence
+        seq = removeNs(rec.id, seq)
         
         #save amino acid sequence as string
         aa = str(Seq(seq).translate())
@@ -447,6 +451,9 @@ def RSDUc(fasta_file, dinucl, position = ['pos1', 'pos2', 'bridge'], boots = 'no
         if len(seq)%3 != 0:
             print("\n\n\\(*'o'*)/\tOops! Sequence %s has length not a multiple of 3...\n\n"%str(rec.id))
             return
+
+        #remove Ns that might be in the sequence
+        seq = removeNs(rec.id, seq)            
         
         #save amino acid sequence as string
         aa = str(Seq(seq).translate())
@@ -764,11 +771,17 @@ def RSDUc(fasta_file, dinucl, position = ['pos1', 'pos2', 'bridge'], boots = 'no
 ##########################   
    
    
-def dict_to_tsv(dictionary, output_name, error = 'none'):
+def dict_to_tsv(dictionary, output_name, sep = '\t', error = 'none'):
 
-    table_out = "acc\t"
+    table_out = "acc" + sep
 
     first_accession = list(dictionary)[0]
+    
+    #with this if statement even if no error option is specified it will default to
+    #95% CI if the dictionary includes uncertainty calculations
+    if ( error == 'none' and len(dictionary[first_accession][list(dictionary[first_accession])[0]]) > 1 ):
+        error = '95CI'
+    
     #this takes care of the table's header
     for i in range(len(list(dictionary[first_accession]))):
     
@@ -780,17 +793,17 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
 
         if error == 'stdev':
         
-            error_head = str(this_position + '_lowSTDEV\t' + this_position + '_highSTDEV\t')
+            error_head = str(this_position + '_lowSTDEV' + sep + this_position + '_highSTDEV' + sep)
 
-        if error == 'sem':
+        if error == '95CI':
         
-            error_head = str(this_position + '_lowSEM\t' + this_position + '_highSEM\t')
+            error_head = str(this_position + '_low95CI' + sep + this_position + '_high95CI' + sep)
         
         if error == 'extrema':
         
-            error_head = str(this_position + '_errorMin\t' + this_position + '_errorMax\t')
+            error_head = str(this_position + '_errorMin' + sep + this_position + '_errorMax' + sep)
         
-        add = str(this_position + '\t' + error_head)
+        add = str(this_position + sep + error_head)
         
         table_out = table_out + add
         
@@ -803,7 +816,7 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
         
         acc_dict = dictionary[acc]
         
-        table_out = str(table_out + acc + '\t')
+        table_out = str(table_out + acc + sep)
         
         #for each position key in the inner dictionary
         for p in range(len(acc_dict)):
@@ -813,7 +826,7 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
             #the observed sequence's value 
             the_value = pos_list[0]
                        
-            table_out = table_out + str(str(the_value) + '\t')
+            table_out = table_out + str(str(the_value) + sep)
             
             if error != 'none':
                 
@@ -838,16 +851,13 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
                          
                     if error == 'stdev':
 
-                        error_add = str(str(m-stdev) + '\t' + str(m+stdev) + '\t')
+                        error_add = str(str(m-stdev) + sep + str(m+stdev) + sep)
                         
                         table_out = table_out + error_add
                     
-                    if error == 'sem':
-                    
-                        #standard error of the mean
-                        sem = stdev/math.sqrt(n)
+                    if error == '95CI':
                         
-                        error_add = str(str(m-sem) + '\t' + str(m+sem) + '\t')
+                        error_add = str(str(m-1.96*stdev) + sep + str(m+1.96*stdev) + sep)
                         
                         table_out = table_out + error_add                
                     
@@ -858,13 +868,13 @@ def dict_to_tsv(dictionary, output_name, error = 'none'):
                         #minimum
                         mini = min(model_values)
                         
-                        error_add = str(str(mini) + '\t' + str(maxi) + '\t')
+                        error_add = str(str(mini) + sep + str(maxi) + sep)
                         
                         table_out = table_out + error_add 
                 
                 else:
                 
-                    table_out = str(table_out + 'NA\tNA\t')
+                    table_out = str(table_out + 'NA' + sep + 'NA' + sep)
                 
         table_out = str(table_out[:-1] + '\n')
         
